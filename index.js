@@ -1,15 +1,10 @@
 import express from "express";
 import bodyParser from "body-parser";
-import pool from "./db.js";
+import pool from "./db.js"; // Import the database connection
 import "dotenv/config";
 
-import pg from "pg";
-const { Pool } = pg;
-dotenv.config();
-const databaseConfig = { connectionString: process.env.DB_URL };
-const pool = new Pool(databaseConfig);
-export default pool;
-
+const app = express();
+const port = process.env.PORT || 3000;
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -61,7 +56,7 @@ app.post("/delete", async (req, res) => {
   try {
     await pool.query("DELETE FROM items WHERE id = $1", [id]);
     res.redirect("/");
-  } catch (err) { // Fixed the missing error parameter
+  } catch (err) {
     console.error(err);
   }
 });
