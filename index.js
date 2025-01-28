@@ -3,8 +3,13 @@ import bodyParser from "body-parser";
 import pool from "./db.js";
 import "dotenv/config";
 
-const app = express();
-const port = process.env.PORT || 3000;
+import pg from "pg";
+const { Pool } = pg;
+dotenv.config();
+const databaseConfig = { connectionString: process.env.DATABASE_URL };
+const pool = new Pool(databaseConfig);
+export default pool;
+
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
