@@ -1,7 +1,9 @@
-import { Pool } from 'pg';
+import pg from 'pg';
+
+const { Pool } = pg;
 
 const pool = new Pool({
-  connectionString: process.env.DB_URL, // Use environment variable
+  connectionString: process.env.DB_URL,
   ssl: {
     rejectUnauthorized: false, // Required for Render-hosted databases
   },
